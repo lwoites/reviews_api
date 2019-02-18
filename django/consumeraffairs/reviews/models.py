@@ -7,9 +7,12 @@ from django.conf import settings
 class Company(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    
+    verbose_name_plural = 'companies'
 
     def __str__(self):
         return self.name
+    
 
 
 class Review(models.Model):
