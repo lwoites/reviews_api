@@ -13,6 +13,7 @@ djangorestframework = "*"
 django = "*"
 markdown = "*"
 coverage = "*"
+model-mommy = "*"
 
 [requires]
 python_version = "3.7"

@@ -2,4 +2,7 @@
 branch = True
 
 source=consumeraffairs
-omit=consumeraffairs/wsgi.py
+omit=
+    consumeraffairs/wsgi.py,
+    **/migrations/*,
+    **/apps.py

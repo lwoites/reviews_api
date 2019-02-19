@@ -20,8 +20,8 @@ from consumeraffairs.reviews.views import CompanyDetail, CompanyList, ReviewDeta
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/reviews/', ReviewList.as_view()),
-    path('api/reviews/<int:pk>/', ReviewDetail.as_view()),
-    path('api/companies/', CompanyList.as_view()),
-    path('api/companies/<int:pk>/', CompanyDetail.as_view()),
+    path('api/reviews/', ReviewList.as_view(), name="review-list"),
+    path('api/reviews/<int:pk>/', ReviewDetail.as_view(), name="review-details"),
+    path('api/companies/', CompanyList.as_view(), name="company-list"),
+    path('api/companies/<int:pk>/', CompanyDetail.as_view(), name="company-detail"),
 ]

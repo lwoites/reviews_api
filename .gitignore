@@ -2,6 +2,7 @@
 *~
 
 **/.coverage
+**/htmlcov
 *.sqlite3
 
 .vscode
