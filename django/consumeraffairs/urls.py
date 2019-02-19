@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken import views
 from consumeraffairs.reviews.views import CompanyDetail, CompanyList, ReviewDetail, ReviewList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-token-auth/', views.obtain_auth_token),
     path('api/reviews/', ReviewList.as_view(), name="review-list"),
     path('api/reviews/<int:pk>/', ReviewDetail.as_view(), name="review-details"),
     path('api/companies/', CompanyList.as_view(), name="company-list"),
