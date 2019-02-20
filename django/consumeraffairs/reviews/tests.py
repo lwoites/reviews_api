@@ -22,17 +22,14 @@ class ReviewTests(APITestCase):
         self.client.credentials()
 
     def login(self,):
-        self.client.login(username=self.user.username, password=self.password)
-
         # Include an appropriate `Authorization:` header on all requests.
         token = Token.objects.get(user=self.user)
-        #client = APIClient()
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
     def test_get_reviews_when_non_authenticated_user(self):
         url = reverse('review-list')
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_get_reviews_when_theres_no_reviews(self):
         self.login()
