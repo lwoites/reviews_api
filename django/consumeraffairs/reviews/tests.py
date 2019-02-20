@@ -78,7 +78,7 @@ class ReviewTests(APITestCase):
         url = reverse('review-list')
         response = self.client.get(url)
         self.assertEqual(response.data.get('count'), len(user_1_reviews))
-        for review, returned_review in zip(user_1_reviews, response.data.get('results')):
+        for review, returned_review in zip(reversed(user_1_reviews), response.data.get('results')):
             self.assertEqual(returned_review['id'], review.pk)
 
     def test_get_review_details(self):

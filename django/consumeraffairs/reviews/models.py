@@ -15,6 +15,9 @@ class Company(models.Model):
 
 
 class Review(models.Model):
+    class Meta:
+        ordering = ('-created', )
+
     title = models.CharField(max_length=64)
     summary = models.CharField(max_length=10000)
     rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
