@@ -3,6 +3,7 @@ from model_mommy import mommy
 
 from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from django.urls import reverse
 from django.test import TestCase
 
@@ -17,13 +18,21 @@ class ReviewTests(APITestCase):
         self.user = Reviewer.objects.create_user("user_1", "user_1@example.com", self.password)
         self.company = mommy.make(Company, name="ACME", description="A Wonderful Company")
 
+    def tearDown(self):
+        self.client.credentials()
+
     def login(self,):
         self.client.login(username=self.user.username, password=self.password)
+
+        # Include an appropriate `Authorization:` header on all requests.
+        token = Token.objects.get(user=self.user)
+        #client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
     def test_get_reviews_when_non_authenticated_user(self):
         url = reverse('review-list')
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_reviews_when_theres_no_reviews(self):
         self.login()
